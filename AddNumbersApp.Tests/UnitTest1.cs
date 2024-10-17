@@ -17,7 +17,7 @@ namespace AddNumbersApp.Tests
             int result = Program.AddTwoNumbers(num1, num2);
 
             // Assert
-            Assert.Equal(10, result);
+            Assert.Equal(15, result);
         }
 
         [Fact]
