@@ -15,7 +15,7 @@ env:
 
 jobs:
   build:
-    runs-on: ubuntu-latest #hiii
+    runs-on: ubuntu-latest
 
     steps:
       - name: 'Checkout GitHub Action'
@@ -24,7 +24,7 @@ jobs:
       - name: Setup DotNet ${{ env.DOTNET_VERSION }} Environment
         uses: actions/setup-dotnet@v3
         with:
-        dotnet-version: ${{ env.DOTNET_VERSION }}
+          dotnet-version: ${{ env.DOTNET_VERSION }}
 
       - name: Restore dependencies
         run: dotnet restore ./AddNumbersApp/AddNumbersApp.csproj
@@ -35,17 +35,15 @@ jobs:
       - name: Run tests
         run: dotnet test ./AddNumbersApp.Tests/AddNumbersApp.Tests.csproj --configuration Release
 
-        - name: 'Run Azure Functions Action'
-          uses: Azure/functions-action@v1
-          id: fa
-       with:
-        app-name: ${{ env.AZURE_FUNCTIONAPP_NAME }}
-        package: '${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}/output'
-        publish-profile: ${{ secrets.AZURE_FUNCTIONAPP_PUBLISH_PROFILE }} 
+      - name: 'Run Azure Functions Action'
+        uses: Azure/functions-action@v1
+        id: fa
+        with:
+          app-name: ${{ env.AZURE_FUNCTIONAPP_NAME }}
+          package: '${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}/output'
+          publish-profile: ${{ secrets.AZURE_FUNCTIONAPP_PUBLISH_PROFILE }}
 
       - name: Deploy
         run: |
           echo "Deploying application..."
           # Add your deployment commands here, e.g., publish, deploy to Azure, etc.
-
-        
