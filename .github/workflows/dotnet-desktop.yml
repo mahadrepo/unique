@@ -32,5 +32,5 @@ jobs:
 
     - name: Deploy
       run: |
-        echo "Deploying application..."
+        echo "AZURE_FUNCTIONAPP_PUBLISH_PROFILE"
         # Add your deployment commands here, e.g., publish, deploy to Azure, etc.
