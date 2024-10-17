@@ -9,8 +9,8 @@ on:
       - main # Change to your default branch if needed
 
 env:
-  AZURE_FUNCTIONAPP_NAME: "test-function-app-cicd"  # set this to your function app name on Azure
-  AZURE_FUNCTIONAPP_PACKAGE_PATH: "." # set this to the path to your function app project, defaults to the repository root
+  AZURE_FUNCTIONAPP_NAME: "test-function-app-cicd"  # Set this to your function app name on Azure
+  AZURE_FUNCTIONAPP_PACKAGE_PATH: "." # Set this to the path to your function app project, defaults to the repository root
   DOTNET_VERSION: "8.0.x"
 
 jobs:
@@ -50,8 +50,10 @@ jobs:
           scm-do-build-during-deployment: false
           enable-oryx-build: false
           remote-build: false
+          # Optional: Add slot-name if deploying to a specific slot
+          # slot-name: 'production'
 
       - name: Deploy
         run: |
           echo "Deploying application..."
-          # Add your deployment commands here, e.g., publish, deploy to Azure, etc.
+          # Add any additional deployment commands here if necessary
