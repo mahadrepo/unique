@@ -8,6 +8,12 @@ on:
     branches:
       - main  # Change to your default branch if needed
 
+
+env:
+  AZURE_FUNCTIONAPP_NAME: 'test-function-app-cicd'   # set this to your function app name on Azure
+  AZURE_FUNCTIONAPP_PACKAGE_PATH: '.'       # set this to the path to your function app project, defaults to the repository root
+  DOTNET_VERSION: '8.0.x' 
+
 jobs:
   build:
     runs-on: ubuntu-latest #hiii
@@ -32,5 +38,5 @@ jobs:
 
     - name: Deploy
       run: |
-        echo "AZURE_FUNCTIONAPP_PUBLISH_PROFILE"
+        echo "Deploying application..."
         # Add your deployment commands here, e.g., publish, deploy to Azure, etc.
