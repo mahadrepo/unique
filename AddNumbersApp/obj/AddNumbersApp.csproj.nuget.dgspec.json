@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Mahad Nadeem\\Desktop\\azurefunctionIrfan\\csharp-testing\\AddNumbersApp\\AddNumbersApp.csproj": {}
+    "C:\\Users\\Mahad Nadeem\\Desktop\\unique\\AddNumbersApp\\AddNumbersApp.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Mahad Nadeem\\Desktop\\azurefunctionIrfan\\csharp-testing\\AddNumbersApp\\AddNumbersApp.csproj": {
+    "C:\\Users\\Mahad Nadeem\\Desktop\\unique\\AddNumbersApp\\AddNumbersApp.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Mahad Nadeem\\Desktop\\azurefunctionIrfan\\csharp-testing\\AddNumbersApp\\AddNumbersApp.csproj",
+        "projectUniqueName": "C:\\Users\\Mahad Nadeem\\Desktop\\unique\\AddNumbersApp\\AddNumbersApp.csproj",
         "projectName": "AddNumbersApp",
-        "projectPath": "C:\\Users\\Mahad Nadeem\\Desktop\\azurefunctionIrfan\\csharp-testing\\AddNumbersApp\\AddNumbersApp.csproj",
+        "projectPath": "C:\\Users\\Mahad Nadeem\\Desktop\\unique\\AddNumbersApp\\AddNumbersApp.csproj",
         "packagesPath": "C:\\Users\\Mahad Nadeem\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Mahad Nadeem\\Desktop\\azurefunctionIrfan\\csharp-testing\\AddNumbersApp\\obj\\",
+        "outputPath": "C:\\Users\\Mahad Nadeem\\Desktop\\unique\\AddNumbersApp\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Mahad Nadeem\\AppData\\Roaming\\NuGet\\NuGet.Config"

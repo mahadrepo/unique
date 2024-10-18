@@ -39,4 +39,4 @@ jobs:
           app-name: 'test-function-app-cicd'
           slot-name: 'Production'
           package: '${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}/publish'
-          publish-profile: ${{ secrets.AzureAppService_PublishProfile_aeee44f8f839484494046740cf24c589 }}
+          publish-profile: ${{ secrets.AZURE_FUNCTIONAPP_PUBLISH_PROFILE }}
