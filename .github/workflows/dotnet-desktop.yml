@@ -1,58 +1,58 @@
-name: CI/CD Pipeline
+name: CI/CD Pipeline for Azure Function App
 
 on:
   push:
-    branches:
-      - main
+    branches: [ main ]
   pull_request:
-    branches:
-      - main
+    branches: [ main ]
 
 env:
-  AZURE_FUNCTIONAPP_NAME: "test-function-app-cicd"
-  AZURE_FUNCTIONAPP_PACKAGE_PATH: "."
-  DOTNET_VERSION: "8.0.x"
-  ACTIONS_STEP_DEBUG: true
+  AZURE_FUNCTIONAPP_NAME: 'test-function-app-cicd'
+  AZURE_FUNCTIONAPP_PACKAGE_PATH: '.'
+  DOTNET_VERSION: '8.0.x'
 
 jobs:
-  build:
+  build-and-deploy:
     runs-on: ubuntu-latest
-
     steps:
-      - name: 'Checkout GitHub Action'
-        uses: actions/checkout@v3
+    - uses: actions/checkout@v3
 
-      - name: Setup DotNet ${{ env.DOTNET_VERSION }} Environment
-        uses: actions/setup-dotnet@v3
-        with:
-          dotnet-version: ${{ env.DOTNET_VERSION }}
+    - name: Setup DotNet ${{ env.DOTNET_VERSION }} Environment
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: ${{ env.DOTNET_VERSION }}
 
-      - name: Restore dependencies
-        run: dotnet restore ./AddNumbersApp/AddNumbersApp.csproj
+    - name: Restore dependencies
+      run: dotnet restore ./AddNumbersApp/AddNumbersApp.csproj
 
-      - name: Build the project
-        run: dotnet build --configuration Release ./AddNumbersApp/AddNumbersApp.csproj
+    - name: Build
+      run: dotnet build --configuration Release ./AddNumbersApp/AddNumbersApp.csproj
 
-      - name: Run tests
-        run: dotnet test ./AddNumbersApp.Tests/AddNumbersApp.Tests.csproj --configuration Release
+    - name: Test
+      run: dotnet test ./AddNumbersApp.Tests/AddNumbersApp.Tests.csproj --configuration Release
 
-      - name: Publish the project
-        run: dotnet publish --configuration Release --output ./output ./AddNumbersApp/AddNumbersApp.csproj
+    - name: Publish
+      run: dotnet publish --configuration Release --output ./output ./AddNumbersApp/AddNumbersApp.csproj
 
-     
-      - name: 'Run Azure Functions Action'
-        uses: Azure/functions-action@v1
-        with:
-          app-name: ${{ env.AZURE_FUNCTIONAPP_NAME }}
-          package: './output'
-          publish-profile: ${{ secrets.AZURE_FUNCTIONAPP_PUBLISH_PROFILE }}
-          respect-pom-xml: false
-          respect-funcignore: false
-          scm-do-build-during-deployment: false
-          enable-oryx-build: false
-          remote-build: false
+    - name: Login to Azure
+      uses: azure/login@v1
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
 
-      - name: Deploy
-        run: |
-          echo "Deploying application..."
-          # Add any additional deployment commands here if necessary
+    - name: 'Deploy to Azure Function App'
+      uses: Azure/functions-action@v1.5.0
+      with:
+        app-name: ${{ env.AZURE_FUNCTIONAPP_NAME }}
+        package: './output'
+        publish-profile: ${{ secrets.AZURE_FUNCTIONAPP_PUBLISH_PROFILE }}
+        respect-pom-xml: false
+        respect-funcignore: false
+        scm-do-build-during-deployment: false
+        enable-oryx-build: false
+        remote-build: false
+
+    - name: Azure logout
+      run: |
+        az logout
+        az cache purge
+        az account clear
