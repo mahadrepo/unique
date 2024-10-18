@@ -39,12 +39,6 @@ jobs:
       - name: Publish the project
         run: dotnet publish --configuration Release --output ./output ./AddNumbersApp/AddNumbersApp.csproj
 
-      - name: 'Azure Login'
-        uses: azure/login@v1
-        with:
-          client-id: ${{ secrets.AZURE_CLIENT_ID }}
-          client-secret: ${{ secrets.AZURE_CLIENT_SECRET }}
-          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
      
       - name: 'Run Azure Functions Action'
         uses: Azure/functions-action@v1
