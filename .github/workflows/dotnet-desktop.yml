@@ -12,7 +12,7 @@ env:
   AZURE_FUNCTIONAPP_NAME: "test-function-app-cicd"
   AZURE_FUNCTIONAPP_PACKAGE_PATH: "."
   DOTNET_VERSION: "8.0.x"
-  
+  ACTIONS_STEP_DEBUG: true
 
 jobs:
   build:
