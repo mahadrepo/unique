@@ -62,6 +62,7 @@
 #         run: |
 #           echo "Deploying application..."
 #           # Add any additional deployment commands here if necessary
+name: CI/CD Pipeline
 
 on:
   push: # Trigger on any push
