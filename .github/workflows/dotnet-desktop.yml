@@ -35,6 +35,6 @@ jobs:
         id: fa
         with:
           app-name: 'test-function-app-cicd'
-          slot-name: 'Production'
+          slot-name: 'dev'
           package: '${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}/output'
           publish-profile: ${{ secrets.AZURE_FUNCTIONAPP_PUBLISH_PROFILE }}
