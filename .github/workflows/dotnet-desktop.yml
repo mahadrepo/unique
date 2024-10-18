@@ -65,7 +65,7 @@ on:
 
 env:
   AZURE_FUNCTIONAPP_PACKAGE_PATH: '.' # set this to the path to your Azure Function project
-  DOTNET_VERSION: '8.0.x' # set this to the .NET version to use
+  DOTNET_VERSION: '8.0.x' # set this to
 
 jobs:
   build-and-deploy:
