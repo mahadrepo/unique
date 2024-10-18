@@ -1,6 +1,3 @@
-# Docs for the Azure Web Apps Deploy action: https://github.com/azure/functions-action
-# More GitHub Actions for Azure: https://github.com/Azure/actions
-
 name: Build and deploy dotnet core project to Azure Function App - test-function-app-cicd
 
 on:
@@ -10,8 +7,8 @@ on:
   workflow_dispatch:
 
 env:
-  AZURE_FUNCTIONAPP_PACKAGE_PATH: '.' # set this to the path to your web app project, defaults to the repository root
-  DOTNET_VERSION: '8.0.x' # set this to the dotnet version to use
+  AZURE_FUNCTIONAPP_PACKAGE_PATH: './AddNumbersApp' # set this to the path to your web app project
+  DOTNET_VERSION: '8.0.x'
 
 jobs:
   build-and-deploy:
@@ -26,11 +23,13 @@ jobs:
         with:
           dotnet-version: ${{ env.DOTNET_VERSION }}
 
-      - name: 'Resolve Project Dependencies Using Dotnet'
+      - name: 'Build and Publish'
         shell: bash
         run: |
-          pushd './AddNumbersApp'
-          dotnet build --configuration Release --output ./output
+          pushd '${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}'
+          dotnet restore
+          dotnet build --configuration Release
+          dotnet publish -c Release -o ./publish
           popd
       
       - name: 'Run Azure Functions Action'
@@ -39,5 +38,5 @@ jobs:
         with:
           app-name: 'test-function-app-cicd'
           slot-name: 'Production'
-          package: '${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}/output'
+          package: '${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}/publish'
           publish-profile: ${{ secrets.AzureAppService_PublishProfile_aeee44f8f839484494046740cf24c589 }}
