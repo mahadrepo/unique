@@ -32,7 +32,7 @@ jobs:
           dotnet publish -c Release -o ./publish
           popd
 
-          #wassssuppp
+          #wassssu
       
       - name: 'Run Azure Functions Action'
         uses: Azure/functions-action@v1
