@@ -14,7 +14,7 @@ namespace AddNumbersApp.Tests
             int num2 = 10;
 
             // Act
-            int result = Program.AddTwoNumbers(num1, num2);
+            int result = AddNumbers.AddTwoNumbers(num1, num2);
 
             // Assert
             Assert.Equal(15, result);
@@ -28,7 +28,7 @@ namespace AddNumbersApp.Tests
             int num2 = 5;
 
             // Act
-            int result = Program.SubtractTwoNumbers(num1, num2);
+            int result = AddNumbers.SubtractTwoNumbers(num1, num2);
 
             // Assert
             Assert.Equal(5, result);
@@ -42,7 +42,7 @@ namespace AddNumbersApp.Tests
             int num2 = 10;
 
             // Act
-            int result = Program.MultiplyTwoNumbers(num1, num2);
+            int result = AddNumbers.MultiplyTwoNumbers(num1, num2);
 
             // Assert
             Assert.Equal(50, result);
@@ -56,7 +56,7 @@ namespace AddNumbersApp.Tests
             int num2 = 5;
 
             // Act
-            double result = Program.DivideTwoNumbers(num1, num2);
+            double result = AddNumbers.DivideTwoNumbers(num1, num2);
 
             // Assert
             Assert.Equal(2.0, result);
@@ -70,7 +70,7 @@ namespace AddNumbersApp.Tests
             int num2 = 0;
 
             // Act & Assert
-            Assert.Throws<DivideByZeroException>(() => Program.DivideTwoNumbers(num1, num2));
+            Assert.Throws<DivideByZeroException>(() => AddNumbers.DivideTwoNumbers(num1, num2));
         }
     }
 }
