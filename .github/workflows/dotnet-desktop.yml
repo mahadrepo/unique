@@ -3,14 +3,14 @@ name: CI/CD Pipeline
 on:
   push:
     branches:
-      - main # Change to your default branch if needed
+      - main
   pull_request:
     branches:
-      - main # Change to your default branch if needed
+      - main
 
 env:
-  AZURE_FUNCTIONAPP_NAME: "test-function-app-cicd"  # Set this to your function app name on Azure
-  AZURE_FUNCTIONAPP_PACKAGE_PATH: "." # Set this to the path to your function app project, defaults to the repository root
+  AZURE_FUNCTIONAPP_NAME: "test-function-app-cicd"
+  AZURE_FUNCTIONAPP_PACKAGE_PATH: "."
   DOTNET_VERSION: "8.0.x"
 
 jobs:
@@ -50,10 +50,6 @@ jobs:
           scm-do-build-during-deployment: false
           enable-oryx-build: false
           remote-build: false
-          # Optional: Add slot-name if deploying to a specific slot
-          # slot-name: 'production'
-          #joa
-          
 
       - name: Deploy
         run: |
