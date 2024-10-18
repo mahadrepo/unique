@@ -29,7 +29,7 @@ jobs:
       - name: 'Resolve Project Dependencies Using Dotnet'
         shell: bash
         run: |
-          pushd './AddNumbersApp/AddNumbersApp.csproj'
+          pushd './AddNumbersApp'
           dotnet build --configuration Release --output ./output
           popd
       
