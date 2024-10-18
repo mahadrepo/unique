@@ -25,7 +25,7 @@ namespace Company.Function
             int num2 = int.TryParse(req.Query["num2"], out int n2) ? n2 : 0;
 
             int sum = AddNumbers.AddTwoNumbers(num1, num2);
-
+            //set
             return new OkObjectResult($"The sum is: {sum}");
         }
     }
