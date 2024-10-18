@@ -1,103 +1,59 @@
-# name: CI/CD Pipeline
-
-# on:
-#   push:
-#     branches:
-#       - main
-#   pull_request:
-#     branches:
-#       - main
-
-# env:
-#   AZURE_FUNCTIONAPP_NAME: "test-function-app-cicd"
-#   AZURE_FUNCTIONAPP_PACKAGE_PATH: "."
-#   DOTNET_VERSION: "8.0.x"
-  
-
-# jobs:
-#   build:
-#     runs-on: ubuntu-latest
-
-#     steps:
-#       - name: 'Checkout GitHub Action'
-#         uses: actions/checkout@v3
-
-#       - name: Setup DotNet ${{ env.DOTNET_VERSION }} Environment
-#         uses: actions/setup-dotnet@v3
-#         with:
-#           dotnet-version: ${{ env.DOTNET_VERSION }}
-
-#       - name: Restore dependencies
-#         run: dotnet restore ./AddNumbersApp/AddNumbersApp.csproj
-
-#       - name: Build the project
-#         run: dotnet build --configuration Release ./AddNumbersApp/AddNumbersApp.csproj
-
-#       - name: Run tests
-#         run: dotnet test ./AddNumbersApp.Tests/AddNumbersApp.Tests.csproj --configuration Release
-
-#       - name: Publish the project
-#         run: dotnet publish --configuration Release --output ./output ./AddNumbersApp/AddNumbersApp.csproj
-
-     
-#       - name: 'Run Azure Functions Action'
-#         uses: Azure/functions-action@v1
-#         with:
-#           app-name: ${{ env.AZURE_FUNCTIONAPP_NAME }}
-#           package: './output'
-#           publish-profile: ${{ secrets.AZURE_FUNCTIONAPP_PUBLISH_PROFILE }}
-#           respect-pom-xml: false
-#           respect-funcignore: false
-#           scm-do-build-during-deployment: false
-#           enable-oryx-build: false
-#           remote-build: false
-
-#       - name: Deploy
-#         run: |
-#           echo "Deploying application..."
-#           # Add any additional deployment commands here if necessary
+name: CI/CD Pipeline
 
 on:
   push:
     branches:
-      - dev
-  workflow_dispatch:
+      - main
+  pull_request:
+    branches:
+      - main
 
 env:
-  AZURE_FUNCTIONAPP_PACKAGE_PATH: '.' # set this to the path to your Azure Function project
-  DOTNET_VERSION: '8.0.x' # set this to
+  AZURE_FUNCTIONAPP_NAME: "test-function-app-cicd"
+  AZURE_FUNCTIONAPP_PACKAGE_PATH: "."
+  DOTNET_VERSION: "8.0.x"
+  
 
 jobs:
-  build-and-deploy:
+  build:
     runs-on: ubuntu-latest
 
     steps:
       - name: 'Checkout GitHub Action'
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
-      - name: Setup .NET Core ${{ env.DOTNET_VERSION }} Environment
+      - name: Setup DotNet ${{ env.DOTNET_VERSION }} Environment
         uses: actions/setup-dotnet@v3
         with:
           dotnet-version: ${{ env.DOTNET_VERSION }}
 
       - name: Restore dependencies
-        run: dotnet restore ${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}
+        run: dotnet restore ./AddNumbersApp/AddNumbersApp.csproj
 
       - name: Build the project
-        run: dotnet build --configuration Release ${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}
+        run: dotnet build --configuration Release ./AddNumbersApp/AddNumbersApp.csproj
 
       - name: Run tests
-        run: dotnet test --configuration Release ${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}
+        run: dotnet test ./AddNumbersApp.Tests/AddNumbersApp.Tests.csproj --configuration Release
 
       - name: Publish the project
-        run: dotnet publish --configuration Release --output ./output ${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}
+        run: dotnet publish --configuration Release --output ./output ./AddNumbersApp/AddNumbersApp.csproj
 
-      - name: 'Deploy to Azure Function App'
+
+     
+      - name: 'Run Azure Functions Action'
         uses: Azure/functions-action@v1
-        id: fa
         with:
-          app-name: 'test-function-app-cicd'
-          slot-name: 'dev'
+          app-name: ${{ env.AZURE_FUNCTIONAPP_NAME }}
           package: './output'
-          publish-profile: ${{ secrets.URE_FUNCTIONAPP_PUBLISH_PROFILE }}
+          publish-profile: ${{ secrets.AZURE_FUNCTIONAPP_PUBLISH_PROFILE }}
+          respect-pom-xml: false
+          respect-funcignore: false
+          scm-do-build-during-deployment: false
+          enable-oryx-build: false
+          remote-build: false
 
+      - name: Deploy
+        run: |
+          echo "Deploying application..."
+          # Add any additional deployment commands here if necessary
