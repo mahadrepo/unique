@@ -1,3 +1,6 @@
+# Docs for the Azure Web Apps Deploy action: https://github.com/azure/functions-action
+# More GitHub Actions for Azure: https://github.com/Azure/actions
+
 name: Build and deploy dotnet core project to Azure Function App - test-function-app-cicd
 
 on:
@@ -26,7 +29,7 @@ jobs:
       - name: 'Resolve Project Dependencies Using Dotnet'
         shell: bash
         run: |
-          pushd './${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}'
+          pushd './AddNumbersApp/AddNumbersApp.csproj'
           dotnet build --configuration Release --output ./output
           popd
       
@@ -35,6 +38,6 @@ jobs:
         id: fa
         with:
           app-name: 'test-function-app-cicd'
-          slot-name: 'dev'
+          slot-name: 'Production'
           package: '${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}/output'
-          publish-profile: ${{ secrets.AZURE_FUNCTIONAPP_PUBLISH_PROFILE }}
+          publish-profile: ${{ secrets.AzureAppService_PublishProfile_aeee44f8f839484494046740cf24c589 }}
