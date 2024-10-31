@@ -7,9 +7,9 @@ on:
     branches: ['develop-v1']
 
 permissions:
-    pull-requests: write
-    packages: read
-    contents: write
+  pull-requests: write
+  packages: read
+  contents: write
 
 jobs:
   dev-build:
@@ -23,10 +23,10 @@ jobs:
     needs: [dev-build]
     uses: DotFoods/actions/.github/workflows/veracode-upload-scan.yml@main
     with:
-        dotnet-version: '8.0.x'
-        project-path: 'AddNumbersApp/AddNumbersApp.csproj'
-        appname: 'test-function-app-cicd'
-        version: 'test-function-app-cicd.v1.${{ github.run_number }}'
+      dotnet-version: '8.0.x'
+      project-path: 'AddNumbersApp/AddNumbersApp.csproj'
+      appname: 'test-function-app-cicd'
+      version: 'test-function-app-cicd.v1.${{ github.run_number }}'
     secrets: inherit
     
   deploy-dev:
@@ -51,22 +51,22 @@ jobs:
     secrets:
       azureCredentials: ${{ secrets.AZURE_CREDENTIALS }}
 
-  release:
-     needs: [deploy-prod]
-     uses: DotFoods/actions/.github/workflows/functions-swap.yml@main
-     with:
-       environment: prod
+  swap-prod:
+    needs: [swap-dev]
+    uses: DotFoods/actions/.github/workflows/functions-swap.yml@main
+    with:
+      environment: prod
       function-app-name: 'func-pim-archive-storage-prod'
-       resource-group: 'rg-esl-prod'
-       source-slot: 'staging'
-       target-slot: 'production'
-     secrets:
-       azureCredentials: ${{ secrets.AZURE_CREDENTIALS }}
+      resource-group: 'rg-esl-prod'
+      source-slot: 'staging'
+      target-slot: 'production'
+    secrets:
+      azureCredentials: ${{ secrets.AZURE_CREDENTIALS }}
 
   release:
-     needs: [swap-prod]
-     uses: DotFoods/actions/.github/workflows/gitflow-release.yml@main
-     with:
-       developBranch: 'develop-v1'
-       mainBranch: 'main-v1'
-     secrets: inherit
+    needs: [swap-prod]
+    uses: DotFoods/actions/.github/workflows/gitflow-release.yml@main
+    with:
+      developBranch: 'develop-v1'
+      mainBranch: 'main-v1'
+    secrets: inherit
