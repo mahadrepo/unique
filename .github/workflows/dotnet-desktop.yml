@@ -1,4 +1,4 @@
-name: v1-workflow
+name: test-cicd-function-app
 
 on:
   workflow_dispatch:
