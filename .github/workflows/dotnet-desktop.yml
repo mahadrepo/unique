@@ -51,16 +51,17 @@ jobs:
     secrets:
       azureCredentials: ${{ secrets.AZURE_CREDENTIALS }}
 
-    needs: [deploy-prod]
-    uses: DotFoods/actions/.github/workflows/functions-swap.yml@main
-    with:
-      environment: prod
+  release:
+     needs: [deploy-prod]
+     uses: DotFoods/actions/.github/workflows/functions-swap.yml@main
+     with:
+       environment: prod
       function-app-name: 'func-pim-archive-storage-prod'
-      resource-group: 'rg-esl-prod'
-      source-slot: 'staging'
-      target-slot: 'production'
-    secrets:
-      azureCredentials: ${{ secrets.AZURE_CREDENTIALS }}
+       resource-group: 'rg-esl-prod'
+       source-slot: 'staging'
+       target-slot: 'production'
+     secrets:
+       azureCredentials: ${{ secrets.AZURE_CREDENTIALS }}
 
   release:
      needs: [swap-prod]
