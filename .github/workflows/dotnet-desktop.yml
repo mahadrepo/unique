@@ -1,9 +1,9 @@
-name:Azure Function App - test-function-app-cicd
+name: Azure Function App - test-function-app-cicd
 
 on:
   push:
     branches:
-      - main
+      - main 
   workflow_dispatch:
 
 env:
