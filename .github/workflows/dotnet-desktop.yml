@@ -1,4 +1,4 @@
-name: Build and deploy dotnet core project to Azure Function App - test-function-app-cicd
+name:Azure Function App - test-function-app-cicd
 
 on:
   push:
@@ -7,24 +7,26 @@ on:
   workflow_dispatch:
 
 env:
-  AZURE_FUNCTIONAPP_PACKAGE_PATH: './AddNumbersApp' # Set this to the path to your web app project
+  AZURE_FUNCTIONAPP_PACKAGE_PATH: './AddNumbersApp'
   DOTNET_VERSION: '8.0.x'
 
+permissions:
+  contents: write
+
 jobs:
-  build-and-deploy:
+  build:
     runs-on: ubuntu-latest
-    
+
     steps:
       - name: 'Checkout GitHub Action'
         uses: actions/checkout@v4
 
-      - name: Setup DotNet ${{ env.DOTNET_VERSION }} Environment
+      - name: Setup .NET ${{ env.DOTNET_VERSION }} Environment
         uses: actions/setup-dotnet@v1
         with:
           dotnet-version: ${{ env.DOTNET_VERSION }}
 
       - name: 'Build and Publish'
-        shell: bash
         run: |
           pushd "${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}"
           dotnet restore
@@ -32,14 +34,44 @@ jobs:
           dotnet publish -c Release -o ./publish
           popd
 
-      - name: Run tests
+      - name: Run Tests
         run: dotnet test ./AddNumbersApp.Tests/AddNumbersApp.Tests.csproj --configuration Release
 
-      - name: 'Run Azure Functions Action'
+  deploy-dev:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy to Dev Slot
         uses: Azure/functions-action@v1
-        id: fa
         with:
-          app-name: 'test-function-app-cicd'
-          slot-name: 'Production'
+          app-name: 'test-function-app-cicd-dev'
+          slot-name: 'staging'
           package: '${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}/publish'
-          publish-profile: ${{ secrets.AZURE_FUNCTIONAPP_PUBLISH_PROFILE }}
+          publish-profile: ${{ secrets.AZURE_FUNCTIONAPP_DEV_PUBLISH_PROFILE }}
+
+  swap-dev:
+    needs: deploy-dev
+    runs-on: ubuntu-latest
+    steps:
+      - name: Swap Dev Slot to Production
+        uses: Azure/CLI@v1
+        with:
+          inlineScript: |
+            az functionapp deployment slot swap \
+              --resource-group my-resource-group \
+              --name test-function-app-cicd-dev \
+              --slot staging \
+              --target-slot production
+          azureCredentials: ${{ secrets.AZURE_CREDENTIALS }}
+
+  deploy-qa:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy to QA Slot
+        uses: Azure/functions-action@v1
+        with:
+          app-name: 'test-function-app-cicd-qa'
+          slot-name: 'staging'
+          package: '${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}/publish'
+          publish-profile: ${{ secrets.AZURE_FUNCTIONAPP_QA_PUBLISH_PROFILE }}
