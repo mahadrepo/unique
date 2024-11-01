@@ -16,7 +16,6 @@ permissions:
 
 jobs:
 
-
   Upload-Scan:
     needs: [Call-Code-Coverage, Call-Build]
     uses: DotFoods/actions/.github/workflows/veracode-upload-scan-arv.yml@main
@@ -29,7 +28,7 @@ jobs:
 
   Call-Deploy-DEV:
     needs: [Upload-Scan]
-    uses: ./.github/workflows/dotnet-desktop.yml@main
+    uses: ./.github/workflows/dotnet-desktop.yml
     with:
       environment: dev
       function-app-name: 'test-function-app-cicd'
@@ -39,7 +38,7 @@ jobs:
 
   Call-Swap-DEV:
     needs: [Call-Deploy-DEV]
-    uses: ./.github/workflows/dotnet-desktop.yml@main
+    uses: ./.github/workflows/dotnet-desktop.yml
     with:
       environment: dev
       function-app-name: 'test-function-app-cicd'
