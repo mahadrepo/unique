@@ -26,24 +26,11 @@ jobs:
       version: 'AddNumbersApp.v1.${{ github.run_number }}'
     secrets: inherit    
 
-  Call-Deploy-DEV:
-    needs: [Upload-Scan]
+
+  deploy-dev:
+    needs: [upload-scan]
     uses: ./.github/workflows/dotnet-desktop.yml
     with:
-      environment: dev
-      function-app-name: 'test-function-app-cicd'
-      slot-name: 'staging'
+      environment: 'development'
     secrets:
       publishProfileSecret: ${{ secrets.AZURE_FUNCTIONAPP_PUBLISH_PROFILE }}
-
-  Call-Swap-DEV:
-    needs: [Call-Deploy-DEV]
-    uses: ./.github/workflows/dotnet-desktop.yml
-    with:
-      environment: dev
-      function-app-name: 'test-function-app-cicd'
-      resource-group: 'rg-billing-discrepancy-dev'
-      source-slot: 'staging'
-      target-slot: 'production'
-    secrets:
-      azureCredentials: ${{ secrets.AZURE_CREDENTIALS }}
