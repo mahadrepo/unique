@@ -18,26 +18,25 @@ jobs:
   Call-Code-Coverage:
     uses: DotFoods/actions/.github/workflows/unit-test-code-coverage.yml@develop
     with:
-      unit-test-folder: './AddNumersApp.Test'
-      unit-test-project-name: 'AddNumersApp.Test.csproj'
+      unit-test-folder: './AddNumbersApp.Test'
+      unit-test-project-name: 'AddNumbersApp.Test.csproj'
     secrets: inherit
 
   Call-Build:
     uses: DotFoods/actions/.github/workflows/functions-build.yml@test-ty
     with:
       dotnet-version: '8.0.x'
-      project-path-and-name: 'AddNumersApp/AddNumersApp.csproj'
+      project-path-and-name: 'AddNumbersApp/AddNumbersApp.csproj'
     secrets: inherit
-
 
   Upload-Scan:
     needs: [Call-Code-Coverage, Call-Build]
     uses: DotFoods/actions/.github/workflows/veracode-upload-scan.yml@main
     with:
-        dotnet-version: '8.0.x'
-        project-path: ''AddNumersApp/AddNumersApp.csproj''
-        appname: 'AddNumersApp'
-        version: 'AddNumersApp.v1.${{ github.run_number }}'
+      dotnet-version: '8.0.x'
+      project-path: 'AddNumbersApp/AddNumbersApp.csproj'
+      appname: 'AddNumbersApp'
+      version: 'AddNumbersApp.v1.${{ github.run_number }}'
     secrets: inherit    
 
   Call-Deploy-DEV:
@@ -45,7 +44,7 @@ jobs:
     uses: DotFoods/actions/.github/workflows/functions-deploy.yml@main
     with:
       environment: dev
-      function-app-name: 'test-function-app-cicd
+      function-app-name: 'test-function-app-cicd'
       slot-name: 'staging'
     secrets:
       publishProfileSecret: ${{ secrets.AZURE_FUNCTIONAPP_PUBLISH_PROFILE }}
