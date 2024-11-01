@@ -15,23 +15,11 @@ permissions:
   packages: read
 
 jobs:
-  Call-Code-Coverage:
-    uses: DotFoods/actions/.github/workflows/unit-test-code-coverage.yml@develop
-    with:
-      unit-test-folder: './AddNumbersApp.Test'
-      unit-test-project-name: 'AddNumbersApp.Test.csproj'
-    secrets: inherit
 
-  Call-Build:
-    uses: DotFoods/actions/.github/workflows/functions-build.yml@test-ty
-    with:
-      dotnet-version: '8.0.x'
-      project-path-and-name: 'AddNumbersApp/AddNumbersApp.csproj'
-    secrets: inherit
 
   Upload-Scan:
     needs: [Call-Code-Coverage, Call-Build]
-    uses: DotFoods/actions/.github/workflows/veracode-upload-scan.yml@main
+    uses: DotFoods/actions/.github/workflows/veracode-upload-scan-arv.yml@main
     with:
       dotnet-version: '8.0.x'
       project-path: 'AddNumbersApp/AddNumbersApp.csproj'
@@ -41,7 +29,7 @@ jobs:
 
   Call-Deploy-DEV:
     needs: [Upload-Scan]
-    uses: DotFoods/actions/.github/workflows/functions-deploy.yml@main
+    uses: ./.github/workflows/dotnet-desktop.yml@main
     with:
       environment: dev
       function-app-name: 'test-function-app-cicd'
@@ -51,7 +39,7 @@ jobs:
 
   Call-Swap-DEV:
     needs: [Call-Deploy-DEV]
-    uses: DotFoods/actions/.github/workflows/functions-swap.yml@main
+    uses: ./.github/workflows/dotnet-desktop.yml@main
     with:
       environment: dev
       function-app-name: 'test-function-app-cicd'
