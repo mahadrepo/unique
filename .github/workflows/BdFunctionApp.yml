@@ -56,3 +56,10 @@ jobs:
       source-slot: 'staging'
       target-slot: 'production'
    
+  Call-Release:
+    needs: [Call-Swap-DEV]
+    uses: DotFoods/actions/.github/workflows/gitflow-release.yml@main
+    with:
+      developBranch: ${{ github.base_ref }}
+      mainBranch: 'main-v1'
+    secrets: inherit
