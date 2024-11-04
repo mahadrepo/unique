@@ -2,7 +2,7 @@ name: v1-workflow
 
 on:
   workflow_dispatch:
-    push:
+  push:
     branches: ['main']
 
 permissions:
