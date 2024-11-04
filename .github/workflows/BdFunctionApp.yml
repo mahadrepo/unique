@@ -56,11 +56,3 @@ jobs:
       source-slot: 'staging'
       target-slot: 'production'
    
-
-  deploy-dev:
-    needs: [Upload-Scan]
-    uses: ./.github/workflows/BdFunctionApp.yml  # Added reference to 'main' branch
-    with:
-      environment: 'development'
-    secrets:
-      publishProfileSecret: ${{ secrets.AZURE_FUNCTIONAPP_PUBLISH_PROFILE }}
