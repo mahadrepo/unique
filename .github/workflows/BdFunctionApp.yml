@@ -55,12 +55,11 @@ jobs:
       resource-group: 'rg-billing-discrepancy-dev'
       source-slot: 'staging'
       target-slot: 'production'
-    secrets:
-      azureCredentials: ${{ secrets.AZURE_CREDENTIALS }}
+   
 
   deploy-dev:
     needs: [Upload-Scan]
-    uses: .github/workflows/BdFunctionApp.yml
+    uses: ./.github/workflows/BdFunctionApp.yml@main  # Added reference to 'main' branch
     with:
       environment: 'development'
     secrets:
