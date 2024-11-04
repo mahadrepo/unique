@@ -12,7 +12,7 @@ permissions:
 
 jobs:
   Call-Code-Coverage:
-    uses: DotFoods/actions/.github/workflows/unit-test-code-coverage.yml@develop
+    uses: DotFoods/actions/blob/develop/.github/workflows/unit-test-code-coverage.yml@develop
     with:
       unit-test-folder: 'AddNumbersApp/AddNumbersApp.Test'
       unit-test-project-name: 'AddNumbersApp.Test.csproj'
