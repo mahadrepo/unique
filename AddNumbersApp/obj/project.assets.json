@@ -4549,19 +4549,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Irfan Khan\\.nuget\\packages\\": {}
+    "C:\\Users\\Mahad Nadeem\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Irfan Khan\\Documents\\GitHub\\unique\\AddNumbersApp\\AddNumbersApp.csproj",
+      "projectUniqueName": "C:\\Users\\Mahad Nadeem\\Documents\\GitHub\\unique1\\AddNumbersApp\\AddNumbersApp.csproj",
       "projectName": "AddNumbersApp",
-      "projectPath": "C:\\Users\\Irfan Khan\\Documents\\GitHub\\unique\\AddNumbersApp\\AddNumbersApp.csproj",
-      "packagesPath": "C:\\Users\\Irfan Khan\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Irfan Khan\\Documents\\GitHub\\unique\\AddNumbersApp\\obj\\",
+      "projectPath": "C:\\Users\\Mahad Nadeem\\Documents\\GitHub\\unique1\\AddNumbersApp\\AddNumbersApp.csproj",
+      "packagesPath": "C:\\Users\\Mahad Nadeem\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Mahad Nadeem\\Documents\\GitHub\\unique1\\AddNumbersApp\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\Irfan Khan\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "C:\\Users\\Mahad Nadeem\\AppData\\Roaming\\NuGet\\NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net8.0"

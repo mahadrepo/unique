@@ -1,4 +1,3 @@
-# Runs unit tests, collects code coverage, and publishes an HTML report to GitHub Pages.
 
 name: v1-workflow
 
