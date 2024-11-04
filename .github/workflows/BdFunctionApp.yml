@@ -59,7 +59,7 @@ jobs:
 
   deploy-dev:
     needs: [Upload-Scan]
-    uses: ./.github/workflows/BdFunctionApp.yml  # Added reference to 'main' branch
+    uses: ./.github/workflows/BdFunctionApp.yml@main  # Added reference to 'main' branch
     with:
       environment: 'development'
     secrets:
